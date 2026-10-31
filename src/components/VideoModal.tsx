@@ -99,7 +99,8 @@ export default function VideoModal({ isOpen, src, title, onClose }: VideoModalPr
               controls
               autoPlay
               playsInline
-              {...({ 'webkit-playsinline': 'true' } as any)}
+              preload="auto"
+              {...({ 'webkit-playsinline': 'true', 'x5-playsinline': 'true' } as any)}
               loop
               className="w-full h-full object-contain"
             />

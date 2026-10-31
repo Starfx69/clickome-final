@@ -26,7 +26,6 @@ export default function Navbar() {
     { name: 'Services', path: '/#services' },
     { name: 'Portfolio', path: '/#portfolio' },
     { name: 'About', path: '/about' },
-    { name: 'Designing', path: '/designing' },
     { name: 'Contact', path: '/#contact' },
   ];
 
@@ -37,7 +36,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-display font-bold tracking-tight text-white">
+        <Link to="/" className="text-3xl sm:text-4xl md:text-[2.6rem] font-display font-bold tracking-tight text-white transition-transform hover:scale-[1.02]">
           Clicko<span className="text-brand-gold">me.co</span>
         </Link>
 

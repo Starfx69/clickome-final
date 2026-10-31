@@ -26,10 +26,10 @@ export default function EngagementPhotography() {
           title="Our Process"
           subtitle="Engagement Shoots"
           steps={[
-            { step: "01", title: "Vision Board", desc: "Collaborating on ideas, themes, and locations that reflect your personalities." },
-            { step: "02", title: "Styling", desc: "Providing guidance on wardrobe and props for a cohesive and stunning look." },
-            { step: "03", title: "The Session", desc: "A relaxed and fun photoshoot designed to capture natural and genuine moments." },
-            { step: "04", title: "Retouching", desc: "Expert editing to ensure you look your absolute best for your announcements." }
+            { step: "01", title: "Vision & Mood", desc: "Curating themes, spots, and personal style." },
+            { step: "02", title: "Wardrobe & Styling", desc: "Guiding outfits for a cohesive aesthetic." },
+            { step: "03", title: "The Session", desc: "Fun, relaxed shoot for genuine chemistry." },
+            { step: "04", title: "Announcement Edits", desc: "Polished portraits ready for invitations." }
           ]}
         />
 

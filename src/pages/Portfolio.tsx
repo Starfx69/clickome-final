@@ -54,10 +54,10 @@ export default function Portfolio() {
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              viewport={{ once: true, margin: "120px" }}
+              transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
             >
               <Link to={project.link} className="block group relative overflow-hidden rounded-2xl aspect-[4/3] bg-brand-charcoal border border-white/5 hover:border-brand-gold/30 transition-all duration-500">
                 {project.videoSrc ? (

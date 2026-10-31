@@ -21,6 +21,7 @@ export default defineConfig(({mode}) => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: {
         ignored: [
+          '**/dist/**',
           '**/public/**',
           '**/food/**',
           '**/weddings/**',
@@ -33,6 +34,22 @@ export default defineConfig(({mode}) => {
           '**/*.mp4',
           '**/*.JPG'
         ],
+      },
+    },
+    build: {
+      target: 'esnext',
+      cssMinify: true,
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('motion')) return 'vendor-motion';
+              if (id.includes('lucide-react')) return 'vendor-lucide';
+              if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) return 'vendor-react';
+            }
+          },
+        },
       },
     },
   };

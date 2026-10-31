@@ -37,10 +37,10 @@ export default function DigitalMarketing() {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
               >
                 {service.link ? (
                   <Link
@@ -63,19 +63,18 @@ export default function DigitalMarketing() {
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Digital Marketing</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { type: 'video', src: "/reels/anand resort vibe final.mp4" },
-              { type: 'image', src: "/screenshot-sm/mt.png" },
+              { type: 'image', src: "/screenshot-sm/ideal.png" },
+              { type: 'image', src: "/screenshot-sm/res.png" },
               { type: 'image', src: "/screenshot-sm/os.png" },
-              { type: 'video', src: "/reels/resort aug 1 final.mp4" },
-              { type: 'video', src: "/reels/new 1 reel.mp4" },
-              { type: 'video', src: "/reels/reel aesthetic wed.mp4" }
+              { type: 'image', src: "/screenshot-sm/mt.png" },
+              { type: 'image', src: "/screenshot-sm/key.png" }
             ].map((media, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
                 className="aspect-[9/16] rounded-xl overflow-hidden group relative bg-brand-charcoal border border-white/10"
               >
                 {media.type === 'video' ? (
@@ -85,8 +84,30 @@ export default function DigitalMarketing() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <img src={media.src} alt="Instagram Screenshot" className="w-full h-full object-cover" />
+                  <img src={media.src} alt="Instagram Screenshot" className="w-full h-full object-contain p-2" />
                 )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-20 md:mb-32">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Authentic Client Results</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              "/screenshot-sm/IMG_2626.png",
+              "/screenshot-sm/IMG_2627.png",
+              "/screenshot-sm/IMG_2629.png"
+            ].map((imgSrc, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-xl overflow-hidden bg-brand-charcoal border border-brand-gold/20 p-2 shadow-[0_0_30px_rgba(212,175,55,0.05)]"
+              >
+                <img src={imgSrc} alt="Client Growth Insights" className="w-full h-auto rounded-lg object-contain" />
               </motion.div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { MonitorSmartphone, CheckCircle2, ArrowRight } from 'lucide-react';
+import { MonitorSmartphone, ArrowRight } from 'lucide-react';
 import SmartVideo from '../components/SmartVideo';
+import ProcessSection from '../components/ProcessSection';
 
 export default function ContentCreation() {
   return (
@@ -22,33 +23,16 @@ export default function ContentCreation() {
         </motion.div>
 
         {/* Process Section */}
-        <div className="mb-20 md:mb-32">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Our Content Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Content Strategy", desc: "Developing a content calendar and strategy aligned with your brand voice and goals." },
-              { step: "02", title: "Ideation", desc: "Brainstorming creative concepts, trends, and formats that resonate with your audience." },
-              { step: "03", title: "Production", desc: "Creating high-quality graphics, short-form videos, photography, and written copy." },
-              { step: "04", title: "Review & Refine", desc: "Collaborative review process to ensure all content meets your brand standards." }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-2xl bg-brand-charcoal border border-white/5 relative overflow-hidden group"
-              >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 text-8xl font-display font-bold text-white/5 group-hover:text-brand-gold/5 transition-colors duration-500">
-                  {item.step}
-                </div>
-                <CheckCircle2 className="w-8 h-8 text-brand-gold mb-6 relative z-10" />
-                <h3 className="text-xl font-bold mb-4 relative z-10">{item.title}</h3>
-                <p className="text-gray-400 relative z-10">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <ProcessSection
+          title="Our Content Process"
+          subtitle="Content Creation"
+          steps={[
+            { step: "01", title: "Content Strategy", desc: "Targeted content calendar and growth plan." },
+            { step: "02", title: "Creative Ideation", desc: "Trending formats and viral hook concepts." },
+            { step: "03", title: "Batch Production", desc: "Shooting high-energy reels, photos, and copy." },
+            { step: "04", title: "Publish & Refine", desc: "Consistent scheduling and brand polish." }
+          ]}
+        />
 
         {/* Featured Work */}
         <div className="mb-20 md:mb-32">

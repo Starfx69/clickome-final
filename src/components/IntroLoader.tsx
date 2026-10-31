@@ -3,15 +3,22 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Camera, Sparkles } from 'lucide-react';
 
 export default function IntroLoader() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('clickome_intro_seen');
+    }
+    return false;
+  });
 
   useEffect(() => {
+    if (!loading) return;
+    sessionStorage.setItem('clickome_intro_seen', 'true');
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [loading]);
 
   if (!loading) return null;
 
@@ -22,8 +29,9 @@ export default function IntroLoader() {
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-black text-white pointer-events-none"
+          transition={{ duration: 0.25 }}
+          onClick={() => setLoading(false)}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-black text-white cursor-pointer"
         >
           {/* Background Glow */}
           <div className="absolute w-[500px] h-[500px] bg-brand-gold/10 rounded-full blur-[150px] animate-pulse pointer-events-none" />
@@ -37,7 +45,7 @@ export default function IntroLoader() {
               className="relative mb-8"
             >
               <div className="w-24 h-24 rounded-full bg-brand-charcoal border border-brand-gold/30 flex items-center justify-center shadow-[0_0_50px_rgba(212,175,55,0.2)]">
-                <Camera className="w-12 h-12 text-brand-gold" />
+                <Camera className="w-16 h-16 text-brand-gold" />
               </div>
               <motion.div
                 animate={{ rotate: 360 }}
@@ -48,10 +56,10 @@ export default function IntroLoader() {
 
             {/* Brand Title */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4"
+              transition={{ duration: 0.25 }}
+              className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-3"
             >
               Clicko<span className="text-brand-gold">me.co</span>
             </motion.h1>
@@ -60,20 +68,20 @@ export default function IntroLoader() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="text-sm md:text-base text-gray-400 font-light tracking-widest uppercase mb-10 flex items-center gap-2"
+              transition={{ duration: 0.25 }}
+              className="text-xs md:text-sm text-gray-400 font-light tracking-widest uppercase mb-8 flex items-center gap-2"
             >
-              <Sparkles className="w-4 h-4 text-brand-gold" />
+              <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
               Crafting Visual Experiences
-              <Sparkles className="w-4 h-4 text-brand-gold" />
+              <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
             </motion.p>
 
             {/* Progress Bar */}
-            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden relative">
+            <div className="w-40 h-1 bg-white/10 rounded-full overflow-hidden relative">
               <motion.div
                 initial={{ x: '-100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 2, ease: 'easeInOut' }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="h-full bg-gradient-to-r from-brand-gold to-brand-gold-light shadow-[0_0_15px_rgba(212,175,55,0.8)]"
               />
             </div>

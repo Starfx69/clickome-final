@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { Video, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Video, ArrowRight } from 'lucide-react';
 import SmartVideo from '../components/SmartVideo';
+import ProcessSection from '../components/ProcessSection';
 
 export default function ProductVideos() {
   return (
@@ -22,45 +23,25 @@ export default function ProductVideos() {
         </motion.div>
 
         {/* Process Section */}
-        <div className="mb-20 md:mb-32">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Our Production Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Concept & Storyboarding", desc: "Planning the visual flow to highlight key features, benefits, and the unique selling proposition." },
-              { step: "02", title: "Studio Setup", desc: "Designing custom sets, lighting, and styling specifically tailored for your product." },
-              { step: "03", title: "Filming", desc: "Capturing high-quality footage, including macro shots, slow-motion, and dynamic movements." },
-              { step: "04", title: "Editing & Graphics", desc: "Adding motion graphics, text overlays, and a compelling soundtrack to drive engagement." }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-2xl bg-brand-charcoal border border-white/5 relative overflow-hidden group"
-              >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 text-8xl font-display font-bold text-white/5 group-hover:text-brand-gold/5 transition-colors duration-500">
-                  {item.step}
-                </div>
-                <CheckCircle2 className="w-8 h-8 text-brand-gold mb-6 relative z-10" />
-                <h3 className="text-xl font-bold mb-4 relative z-10">{item.title}</h3>
-                <p className="text-gray-400 relative z-10">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <ProcessSection
+          title="Our Production Process"
+          subtitle="Product Videos"
+          steps={[
+            { step: "01", title: "Storyboarding", desc: "Mapping visual hooks and product highlights." },
+            { step: "02", title: "Studio Setup", desc: "Custom lighting, staging, and motorized rigs." },
+            { step: "03", title: "Filming", desc: "Macro details, slow-motion, and dynamic movement." },
+            { step: "04", title: "Motion & Sound", desc: "Fast-paced edits, graphics, and punchy audio." }
+          ]}
+        />
 
         {/* Featured Work */}
         <div className="mb-20 md:mb-32">
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Product Videos</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "/product/clickome.co aug.mp4",
-              "/food/final ice -1.mp4",
+              "/food/final%20ice%20-1.mp4",
               "/food/Mocktail.mp4",
-              "/reels/Diamond reeel.mp4",
-              "/reels/BTS clickome.mp4",
-              "/reels/bts ocean shop 1-1.mp4"
+              "/reels/Diamond%20reeel.mp4"
             ].map((videoSrc, idx) => (
               <motion.div
                 key={idx}

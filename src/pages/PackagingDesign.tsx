@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Palette, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Palette, ArrowRight } from 'lucide-react';
+import ProcessSection from '../components/ProcessSection';
 
 export default function PackagingDesign() {
   return (
@@ -24,33 +25,16 @@ export default function PackagingDesign() {
         </motion.div>
 
         {/* Process Section */}
-        <div className="mb-32">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Our Design Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Discovery", desc: "Understanding your product, target audience, and brand positioning." },
-              { step: "02", title: "Concept Design", desc: "Exploring structural and visual concepts that align with your brand." },
-              { step: "03", title: "Refinement", desc: "Iterating on the chosen concept, focusing on typography, color, and materials." },
-              { step: "04", title: "Print-Ready Files", desc: "Delivering precise, print-ready files optimized for your manufacturer." }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-2xl bg-brand-charcoal border border-white/5 relative overflow-hidden group"
-              >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 text-8xl font-display font-bold text-white/5 group-hover:text-brand-gold/5 transition-colors duration-500">
-                  {item.step}
-                </div>
-                <CheckCircle2 className="w-8 h-8 text-brand-gold mb-6 relative z-10" />
-                <h3 className="text-xl font-bold mb-4 relative z-10">{item.title}</h3>
-                <p className="text-gray-400 relative z-10">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <ProcessSection
+          title="Our Design Process"
+          subtitle="Packaging Design"
+          steps={[
+            { step: "01", title: "Discovery", desc: "Product specs, audience, and market niche." },
+            { step: "02", title: "Concept Design", desc: "Structural dielines and 3D visual mockups." },
+            { step: "03", title: "Refinement", desc: "Typography, luxury finishes, and materials." },
+            { step: "04", title: "Print-Ready", desc: "Precision dielines ready for manufacturing." }
+          ]}
+        />
 
         {/* Coming Soon Announcement Banner */}
         <div className="mb-20 p-12 rounded-3xl bg-brand-charcoal border border-brand-gold/20 text-center max-w-4xl mx-auto shadow-[0_0_40px_rgba(212,175,55,0.08)]">

@@ -33,6 +33,7 @@ export default function SmartVideo({
 }: SmartVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -45,7 +46,7 @@ export default function SmartVideo({
     if (typeof window === 'undefined') return;
 
     if (!('IntersectionObserver' in window)) {
-      // Fallback for legacy browsers without IntersectionObserver
+      setShouldLoad(true);
       setIsIntersecting(true);
       return;
     }
@@ -53,10 +54,13 @@ export default function SmartVideo({
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+        }
       },
       {
-        threshold: 0.1, // 10% visible in viewport
-        rootMargin: '100px 0px 100px 0px', // preload slightly before entering viewport
+        threshold: 0.05,
+        rootMargin: '500px 0px 500px 0px', // preload well before entering viewport
       }
     );
 
@@ -69,16 +73,31 @@ export default function SmartVideo({
     };
   }, []);
 
+  // Ensure DOM element has muted=true for iOS / Safari autoPlay policies
+  useEffect(() => {
+    if (videoRef.current && muted) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+    }
+  }, [shouldLoad, muted]);
+
+  // Handle play/pause based on intersection and modal state
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     if (isIntersecting && autoPlay && !isModalOpen) {
+      // Check readyState immediately in case video is already buffered
+      if (video.readyState >= 2) {
+        setIsLoaded(true);
+      }
+
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
             setIsPlaying(true);
+            setIsLoaded(true);
           })
           .catch(() => {
             setIsPlaying(false);
@@ -90,13 +109,16 @@ export default function SmartVideo({
         setIsPlaying(false);
       }
     }
-  }, [isIntersecting, autoPlay, isModalOpen]);
+  }, [isIntersecting, autoPlay, isModalOpen, shouldLoad]);
+
+  const handleVideoReady = () => {
+    setIsLoaded(true);
+  };
 
   const handleContainerClick = (e: React.MouseEvent) => {
     if (onClick) onClick();
 
     if (allowModalExpand) {
-      // Pause inline video preview and open standalone Video Modal with sound
       if (videoRef.current && !videoRef.current.paused) {
         videoRef.current.pause();
         setIsPlaying(false);
@@ -125,13 +147,13 @@ export default function SmartVideo({
         onClick={handleContainerClick}
         className={`relative overflow-hidden bg-brand-charcoal cursor-pointer group ${aspectRatio} ${className}`}
       >
-        {/* Poster Image (Displays immediately, preventing black screen) */}
+        {/* Poster Image (Displays immediately with zero delay, preventing black screens) */}
         {posterSrc && (
           <img
             src={posterSrc}
-            alt="Video thumbnail poster"
-            loading="lazy"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 pointer-events-none ${
+            alt={title || "Video thumbnail poster"}
+            loading="eager"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none ${
               isLoaded ? 'opacity-0' : 'opacity-100'
             }`}
             onError={(e) => {
@@ -140,8 +162,8 @@ export default function SmartVideo({
           />
         )}
 
-        {/* Actual Video Element (Only rendered into DOM when near viewport) */}
-        {isIntersecting && (
+        {/* Video Element: Mounted once near viewport and stays in DOM to retain buffered data */}
+        {shouldLoad && (
           <video
             ref={videoRef}
             src={src}
@@ -149,13 +171,29 @@ export default function SmartVideo({
             loop={loop}
             muted={muted}
             playsInline={playsInline}
-            {...({ 'webkit-playsinline': 'true' } as any)}
-            controls={controls}
             preload="metadata"
-            onLoadedData={() => setIsLoaded(true)}
-            onPlay={() => setIsPlaying(true)}
+            {...({
+              'webkit-playsinline': 'true',
+              'x5-playsinline': 'true',
+            } as any)}
+            controls={controls}
+            onLoadedData={handleVideoReady}
+            onCanPlay={handleVideoReady}
+            onPlaying={() => {
+              handleVideoReady();
+              setIsPlaying(true);
+            }}
             onPause={() => setIsPlaying(false)}
-            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
+            onTimeUpdate={(e) => {
+              if (e.currentTarget.currentTime > 0) {
+                handleVideoReady();
+              }
+            }}
+            onError={() => {
+              console.warn(`SmartVideo failed to play: ${src}`);
+              setIsLoaded(false);
+            }}
+            className={`w-full h-full object-cover transition-opacity duration-500 group-hover:scale-105 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
           />
@@ -163,7 +201,7 @@ export default function SmartVideo({
 
         {/* Center Hover / Touch Overlay */}
         {allowModalExpand && (
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center pointer-events-none">
             <div className="w-12 h-12 rounded-full bg-brand-black/70 backdrop-blur-md border border-brand-gold/40 flex items-center justify-center text-brand-gold group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-brand-black transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)]">
               <Play className="w-5 h-5 ml-0.5 fill-current" />
             </div>

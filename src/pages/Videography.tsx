@@ -22,10 +22,11 @@ export default function Videography() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 md:mb-32 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 md:mb-32 max-w-5xl mx-auto">
           {[
             { title: "Brand Videos", desc: "Compelling brand stories that connect with your audience on an emotional level.", link: "/brand-videos" },
-            { title: "Product Videos", desc: "Dynamic product showcases that highlight features and drive conversions.", link: "/product-videos" }
+            { title: "Product Videos", desc: "Dynamic product showcases that highlight features and drive conversions.", link: "/product-videos" },
+            { title: "AI Generation", desc: "Cutting-edge AI-generated video content that pushes the boundaries of imagination.", link: "/ai-video-generation" }
           ].map((service, idx) => {
             const CardContent = (
               <>
@@ -37,10 +38,10 @@ export default function Videography() {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
               >
                 {service.link ? (
                   <Link
@@ -63,14 +64,39 @@ export default function Videography() {
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Videography</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              "/reels/BTS clickome.mp4",
               "/reels/Diamond reeel.mp4",
               "/reels/anand resort vibe final.mp4",
               "/reels/reel aesthetic wed.mp4",
               "/food/Mocktail.mp4",
               "/food/final ice -1.mp4",
-              "/product/clickome.co aug.mp4",
-              "/reels/resort aug 1 final.mp4"
+              "/ai/14th floor.mp4",
+              "/ai/h t 2.mp4"
+            ].map((videoSrc, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
+                className="aspect-[9/16] rounded-xl overflow-hidden group relative bg-brand-charcoal border border-white/10"
+              >
+                <SmartVideo
+                  src={videoSrc}
+                  aspectRatio="aspect-[9/16]"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Production & Behind the Scenes */}
+        <div className="mb-20 md:mb-32">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Production & Behind the Scenes</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {[
+              "/reels/BTS clickome.mp4",
+              "/reels/bts ocean shop 1-1.mp4"
             ].map((videoSrc, idx) => (
               <motion.div
                 key={idx}

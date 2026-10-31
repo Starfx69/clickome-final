@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Camera, ArrowRight } from 'lucide-react';
 import ProcessSection from '../components/ProcessSection';
+import SmartVideo from '../components/SmartVideo';
 
 export default function EventPhotography() {
   return (
@@ -15,12 +16,9 @@ export default function EventPhotography() {
           <div className="w-20 h-20 mx-auto rounded-full bg-brand-gold/10 flex items-center justify-center mb-8">
             <Camera className="w-10 h-10 text-brand-gold" />
           </div>
-          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-widest text-brand-gold uppercase bg-brand-gold/10 border border-brand-gold/30 rounded-full">
-            Coming Soon
-          </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-bold mb-6">Event Photography</h1>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-bold mb-6">Event Photography & Videography</h1>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
-            We are currently refining our event photography packages to bring you extraordinary coverage for corporate and private events. Stay tuned!
+            Extraordinary coverage for corporate events, private celebrations, and brand launches. We capture the energy, the moments, and the memories of your special occasions.
           </p>
         </motion.div>
 
@@ -29,27 +27,35 @@ export default function EventPhotography() {
           title="Our Process"
           subtitle="Event Coverage"
           steps={[
-            { step: "01", title: "Pre-Event Briefing", desc: "Understanding the schedule, key moments, VIPs, and the specific style of coverage you need." },
-            { step: "02", title: "Coverage", desc: "Comprehensive documentation of the event, capturing everything from candid interactions to keynote speeches." },
-            { step: "03", title: "Rapid Turnaround", desc: "Quick delivery of highlight images for immediate press releases or social media posting." },
-            { step: "04", title: "Final Gallery", desc: "A complete, curated, and fully edited collection of high-resolution event photos." }
+            { step: "01", title: "Briefing", desc: "Reviewing schedule, VIPs, and run of show." },
+            { step: "02", title: "Live Coverage", desc: "Capturing keynotes, crowd energy, and candids." },
+            { step: "03", title: "Express Highlights", desc: "Same-day selects for immediate PR and social." },
+            { step: "04", title: "Full Gallery", desc: "High-resolution curated album delivered." }
           ]}
         />
 
-        {/* Coming Soon Announcement Banner */}
-        <div className="mb-20 p-12 rounded-3xl bg-brand-charcoal border border-brand-gold/20 text-center max-w-4xl mx-auto shadow-[0_0_40px_rgba(212,175,55,0.08)]">
-          <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 text-brand-gold">
-            New Event Packages Launching Soon
-          </h3>
-          <p className="text-gray-300 max-w-xl mx-auto font-light leading-relaxed mb-6">
-            We are curating custom event coverage plans for corporate galas, private celebrations, and brand launches. Contact us directly to reserve early event dates.
-          </p>
-          <a
-            href="/#contact"
-            className="inline-flex items-center justify-center px-8 py-3.5 text-xs font-bold text-brand-black bg-gradient-to-r from-brand-gold to-brand-gold-light rounded-full uppercase tracking-wider hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300"
-          >
-            Inquire About Event Dates <ArrowRight className="w-4 h-4 ml-2" />
-          </a>
+        {/* Featured Events Gallery */}
+        <div className="mb-20">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Event Coverage</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {[
+              "/reels/anand%20resort%20vibe%20final.mp4",
+              "/reels/resort%20aug%201%20final.mp4",
+              "/reels/new%201%20reel.mp4",
+              "/reels/reel%20aesthetic%20wed.mp4"
+            ].map((video, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-xl overflow-hidden group bg-brand-charcoal/30 border border-white/5 flex items-center justify-center p-4 aspect-[9/16] sm:aspect-square md:aspect-video"
+              >
+                <SmartVideo src={video} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-lg" />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         <div className="text-center">

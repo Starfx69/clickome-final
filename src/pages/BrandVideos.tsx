@@ -27,10 +27,10 @@ export default function BrandVideos() {
           title="Our Production Process"
           subtitle="Brand Videos"
           steps={[
-            { step: "01", title: "Pre-Production", desc: "Concept development, scriptwriting, storyboarding, and planning every detail of the shoot." },
-            { step: "02", title: "Production", desc: "Professional filming with cinema-grade cameras, lighting, and audio equipment on set." },
-            { step: "03", title: "Post-Production", desc: "Expert video editing, color grading, visual effects, and sound design to bring the story to life." },
-            { step: "04", title: "Delivery", desc: "Final renders optimized for web, social media, broadcast, and any other platforms you need." }
+            { step: "01", title: "Pre-Production", desc: "Scripting, storyboarding, and concept design." },
+            { step: "02", title: "Production", desc: "Cinema cameras, lighting, and multi-cam shoot." },
+            { step: "03", title: "Post-Production", desc: "Dynamic edit, sound design, and color grading." },
+            { step: "04", title: "Delivery", desc: "Multi-format 4K exports for web and social." }
           ]}
         />
 
@@ -39,12 +39,10 @@ export default function BrandVideos() {
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Brand Videos</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "/reels/anand resort vibe final.mp4",
-              "/reels/resort aug 1 final.mp4",
-              "/reels/Resort Ad VPL.mp4",
-              "/reels/new 1 reel.mp4",
-              "/reels/Wedding Advertisnment_V001.mp4",
-              "/product/clickome.co aug.mp4"
+              "/reels/anand%20resort%20vibe%20final.mp4",
+              "/reels/resort%20aug%201%20final.mp4",
+              "/reels/new%201%20reel.mp4",
+              "/reels/Add%20this%20video%20in%20brand.mp4"
             ].map((videoSrc, idx) => (
               <motion.div
                 key={idx}

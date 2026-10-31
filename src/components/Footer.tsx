@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-brand-charcoal border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1 md:col-span-2">
-          <Link to="/" className="text-3xl font-display font-bold tracking-tight text-white mb-6 block">
+          <Link to="/" className="text-4xl md:text-5xl font-display font-bold tracking-tight text-white mb-6 block">
             Clicko<span className="text-brand-gold">me.co</span>
           </Link>
           <p className="text-gray-400 max-w-sm mb-8 leading-relaxed">

@@ -2,6 +2,31 @@ import { motion } from 'motion/react';
 import { Camera, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+interface PhotographyService {
+  title: string;
+  desc: string;
+  link?: string;
+  comingSoon?: boolean;
+}
+
+const services: PhotographyService[] = [
+  {
+    title: "Commercial & Product Photography",
+    desc: "High-end product shots and striking visuals for advertising and marketing campaigns.",
+    link: "/commercial-product-photography"
+  },
+  {
+    title: "Event Photography",
+    desc: "Capturing the essence and energy of your corporate or private events.",
+    link: "/event-photography"
+  },
+  {
+    title: "Wedding Photography",
+    desc: "Timeless and elegant imagery capturing every precious moment of your special day.",
+    link: "/wedding-photography"
+  }
+];
+
 export default function Photography() {
   return (
     <main className="min-h-screen bg-brand-black text-white pt-32 pb-20">
@@ -22,12 +47,7 @@ export default function Photography() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
-          {[
-            { title: "Product Photography", desc: "High-end product shots that highlight details and drive sales.", link: "/product-photography" },
-            { title: "Commercial Photography", desc: "Striking visuals for advertising and marketing campaigns.", link: "/commercial-photography" },
-            { title: "Event Photography", desc: "Capturing the essence and energy of your corporate or private events.", link: "/event-photography", comingSoon: true },
-            { title: "Wedding Photography", desc: "Timeless and elegant imagery capturing every precious moment of your special day.", link: "/wedding-photography" }
-          ].map((service, idx) => {
+          {services.map((service, idx) => {
             const CardContent = (
               <>
                 <div className="flex items-center justify-between mb-4">
@@ -45,10 +65,10 @@ export default function Photography() {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
               >
                 {service.link ? (
                   <Link
@@ -71,19 +91,20 @@ export default function Photography() {
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-12 text-center">Featured Photography</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "/product/2 (1).png",
-              "/product/2 (2).png",
+              "/product/TOTE%20BAG%20(3).png",
+              "/product/2%20(2).png",
               "/weddings/DSC_0268.jpg",
               "/weddings/DSC_3864.jpg",
-              "/food/Blood Orange Mint Fizz.png",
-              "/food/Chocolate Fudge.png"
+              "/food/Blood%20Orange%20Mint%20Fizz.png",
+              "/food/Chocolate%20Fudge.png",
+              "/food/cupcake%202%201.jpg"
             ].map((img, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
                 className="aspect-square rounded-xl overflow-hidden group"
               >
                 <img src={img} alt="Photography work" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />

@@ -11,9 +11,35 @@
     <meta name="description" content="Professional photography, videography, content creation, and digital marketing services. Clickome.co helps brands grow with high-quality visuals and strategic online presence." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+    <link rel="preload" as="image" href="/weddings/DSC_3864.jpg" fetchpriority="high" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Instant First-Paint Preloader (Replaced immediately when React mounts) -->
+      <div id="initial-loader" style="position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:system-ui,-apple-system,sans-serif;color:#ffffff;">
+        <div style="position:relative;margin-bottom:20px;">
+          <div style="width:68px;height:68px;border-radius:50%;background:#141414;border:1px solid rgba(212,175,55,0.4);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(212,175,55,0.25);">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+          </div>
+        </div>
+        <div style="font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:12px;">
+          Clicko<span style="color:#D4AF37;">me.co</span>
+        </div>
+        <div style="width:120px;height:2.5px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden;position:relative;">
+          <div style="width:50%;height:100%;background:linear-gradient(90deg,#D4AF37,#F3E5AB);border-radius:9999px;animation:clickomePulse 0.9s cubic-bezier(0.4,0,0.2,1) infinite;"></div>
+        </div>
+        <style>
+          @keyframes clickomePulse {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(220%); }
+          }
+        </style>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -26,10 +26,10 @@ export default function PreWeddingPhotography() {
           title="Our Process"
           subtitle="Pre-Wedding Shoots"
           steps={[
-            { step: "01", title: "Concept Design", desc: "Creating a unique narrative and visual style tailored specifically to your story." },
-            { step: "02", title: "Location Scouting", desc: "Finding breathtaking backdrops, from urban landscapes to natural wonders." },
-            { step: "03", title: "Directed Shoot", desc: "Expert guidance in posing and interaction to ensure cinematic and flattering results." },
-            { step: "04", title: "Delivery", desc: "High-resolution edited images perfect for invitations, displays, or personal keepsakes." }
+            { step: "01", title: "Concept Design", desc: "Crafting a unique story and visual vibe." },
+            { step: "02", title: "Location Scouting", desc: "Selecting scenic and cinematic backdrops." },
+            { step: "03", title: "Directed Shoot", desc: "Natural guidance for candid, effortless poses." },
+            { step: "04", title: "Final Gallery", desc: "Artfully retouched, print-ready photographs." }
           ]}
         />
 

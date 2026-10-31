@@ -77,10 +77,10 @@ export default function About() {
             ].map((value, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "120px" }}
+                transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
                 className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-brand-gold/30 transition-all duration-300 text-center group"
               >
                 <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -103,14 +103,14 @@ export default function About() {
           </div>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-gray-300 font-medium text-xl md:text-2xl">
-            <a href="tel:+917757947008" className="hover:text-brand-gold transition-colors block text-center">
+            <a href="tel:+919518308824" className="hover:text-brand-gold transition-colors block text-center">
               <span className="block text-xs md:text-sm text-gray-500 mb-2 uppercase tracking-widest">Phone 1</span>
-              +91 77579 47008
+              +91 95183 08824
             </a>
             <span className="hidden md:inline text-brand-gold text-4xl">•</span>
-            <a href="tel:+919518308824" className="hover:text-brand-gold transition-colors block text-center">
+            <a href="tel:+917757947008" className="hover:text-brand-gold transition-colors block text-center">
               <span className="block text-xs md:text-sm text-gray-500 mb-2 uppercase tracking-widest">Phone 2</span>
-              +91 95183 08824
+              +91 77579 47008
             </a>
             <span className="hidden md:inline text-brand-gold text-4xl">•</span>
             <a href="tel:+919158051045" className="hover:text-brand-gold transition-colors block text-center">

@@ -26,10 +26,10 @@ export default function WeddingPhotography() {
           title="Our Process"
           subtitle="Wedding Coverage"
           steps={[
-            { step: "01", title: "Consultation", desc: "Understanding your vision, style preferences, and key moments you want captured." },
-            { step: "02", title: "Preparation", desc: "Scouting locations and finalizing the photography timeline for a seamless day." },
-            { step: "03", title: "The Big Day", desc: "Unobtrusive yet comprehensive coverage of every tear, smile, and celebration." },
-            { step: "04", title: "Delivery", desc: "A beautifully curated gallery and custom albums to preserve your memories forever." }
+            { step: "01", title: "Consultation", desc: "Aligning on your vision, style, and timeline." },
+            { step: "02", title: "Preparation", desc: "Scouting venues and organizing shot lists." },
+            { step: "03", title: "The Big Day", desc: "Seamless coverage of every heartfelt moment." },
+            { step: "04", title: "Curated Gallery", desc: "Handcrafted albums and timeless edits." }
           ]}
         />
 

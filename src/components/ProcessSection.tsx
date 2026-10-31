@@ -59,10 +59,10 @@ export default function ProcessSection({
         {steps.map((item, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
+            viewport={{ once: true, margin: "100px" }}
+            transition={{ duration: 0.3, delay: idx * 0.03, ease: "easeOut" }}
             className="snap-center w-[85vw] sm:w-[320px] md:w-auto flex-shrink-0 p-6 md:p-8 rounded-2xl bg-brand-charcoal border border-white/5 relative overflow-hidden group shadow-xl flex flex-col justify-between"
           >
             <div className="absolute top-0 right-0 -mt-4 -mr-4 text-7xl md:text-8xl font-display font-bold text-white/5 group-hover:text-brand-gold/5 transition-colors duration-500 pointer-events-none">
