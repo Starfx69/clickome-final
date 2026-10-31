@@ -51,6 +51,11 @@ export default function SmartVideo({
       return;
     }
 
+    // Adaptive rootMargin: tighter on mobile to avoid buffering multiple videos concurrently
+    const isMobile = window.innerWidth < 768;
+    const margin = isMobile ? '120px 0px 120px 0px' : '350px 0px 350px 0px';
+    const threshold = isMobile ? 0.25 : 0.1;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
@@ -59,8 +64,8 @@ export default function SmartVideo({
         }
       },
       {
-        threshold: 0.05,
-        rootMargin: '500px 0px 500px 0px', // preload well before entering viewport
+        threshold,
+        rootMargin: margin,
       }
     );
 
@@ -87,7 +92,6 @@ export default function SmartVideo({
     if (!video || !shouldLoad) return;
 
     if (isIntersecting && autoPlay && !isModalOpen) {
-      // Check readyState immediately in case video is already buffered
       if (video.readyState >= 2) {
         setIsLoaded(true);
       }
@@ -115,7 +119,7 @@ export default function SmartVideo({
     setIsLoaded(true);
   };
 
-  const handleContainerClick = (e: React.MouseEvent) => {
+  const handleContainerClick = () => {
     if (onClick) onClick();
 
     if (allowModalExpand) {
@@ -146,14 +150,16 @@ export default function SmartVideo({
         ref={containerRef}
         onClick={handleContainerClick}
         className={`relative overflow-hidden bg-brand-charcoal cursor-pointer group ${aspectRatio} ${className}`}
+        style={{ transform: 'translate3d(0,0,0)', backfaceVisibility: 'hidden' }}
       >
-        {/* Poster Image (Displays immediately with zero delay, preventing black screens) */}
+        {/* Poster Image: Lazy loaded, async decoded, instant fallback to prevent blank squares */}
         {posterSrc && (
           <img
             src={posterSrc}
             alt={title || "Video thumbnail poster"}
-            loading="eager"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none ${
+            loading="lazy"
+            decoding="async"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none ${
               isLoaded ? 'opacity-0' : 'opacity-100'
             }`}
             onError={(e) => {

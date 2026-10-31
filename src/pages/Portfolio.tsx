@@ -72,6 +72,8 @@ export default function Portfolio() {
                   <img
                     src={project.img}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700"
                   />
                 ) : (

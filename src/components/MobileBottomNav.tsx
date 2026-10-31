@@ -13,8 +13,8 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden pointer-events-auto">
-      <nav className="mx-auto max-w-md bg-brand-charcoal/95 backdrop-blur-xl border border-brand-gold/30 rounded-full px-3 py-2 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
+    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden pointer-events-auto" style={{ transform: 'translate3d(0,0,0)' }}>
+      <nav className="mx-auto max-w-md bg-brand-charcoal/95 backdrop-blur-md border border-brand-gold/30 rounded-full px-3 py-2 shadow-[0_10px_35px_rgba(0,0,0,0.9)] flex items-center justify-around">
         {navItems.map((item) => {
           const isActive = !item.isAnchor && location.pathname === item.path;
           const Icon = item.icon;

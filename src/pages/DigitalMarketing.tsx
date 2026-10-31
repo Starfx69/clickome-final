@@ -84,7 +84,7 @@ export default function DigitalMarketing() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <img src={media.src} alt="Instagram Screenshot" className="w-full h-full object-contain p-2" />
+                  <img src={media.src} alt="Instagram Screenshot" loading="lazy" decoding="async" className="w-full h-full object-contain p-2" />
                 )}
               </motion.div>
             ))}
@@ -107,7 +107,7 @@ export default function DigitalMarketing() {
                 transition={{ delay: idx * 0.1 }}
                 className="rounded-xl overflow-hidden bg-brand-charcoal border border-brand-gold/20 p-2 shadow-[0_0_30px_rgba(212,175,55,0.05)]"
               >
-                <img src={imgSrc} alt="Client Growth Insights" className="w-full h-auto rounded-lg object-contain" />
+                <img src={imgSrc} alt="Client Growth Insights" loading="lazy" decoding="async" className="w-full h-auto rounded-lg object-contain" />
               </motion.div>
             ))}
           </div>

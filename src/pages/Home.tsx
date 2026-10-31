@@ -1,40 +1,65 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Camera, Video, MonitorSmartphone, Palette, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Camera, Video, MonitorSmartphone, Palette, CheckCircle2, ArrowRight, Check, AlertCircle, Loader2 } from 'lucide-react';
 import SmartVideo from '../components/SmartVideo';
 import ProcessSection from '../components/ProcessSection';
 
-const heroBackgrounds = [
-  "/weddings/DSC_3864.jpg",
-  "/product/Chain Diamonds Close-up.png",
-  "/food/Studio Lit Elixir.png",
-  "/weddings/DSC_1601.jpg"
-];
-
 export default function Home() {
-  const [bgIndex, setBgIndex] = useState(0);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formError, setFormError] = useState<string>('');
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBgIndex((prev) => (prev + 1) % heroBackgrounds.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    setFormError('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setFormStatus('success');
+        form.reset();
+      } else {
+        setFormStatus('error');
+        setFormError(data.message || 'Something went wrong. Please call or email us directly.');
+      }
+    } catch {
+      setFormStatus('error');
+      setFormError('Network connection issue. Please contact us directly via phone or WhatsApp.');
+    }
+  };
 
   return (
     <main className="min-h-screen bg-brand-black text-white selection:bg-brand-gold/30">
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-between pt-32 pb-16 overflow-hidden">
-        {/* Ambient Hero Background Image & Glow */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-purple/20 rounded-full blur-[120px] mix-blend-screen" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-brand-gold/20 rounded-full blur-[150px] mix-blend-screen" />
+        {/* Ambient Hero Background & Lightweight Radial Glows (Zero GPU blur overhead) */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div
+            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-35"
+            style={{ background: 'radial-gradient(circle, rgba(106,13,173,0.3) 0%, transparent 70%)' }}
+          />
+          <div
+            className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-35"
+            style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%)' }}
+          />
           <img
             src="/weddings/DSC_3864.jpg"
             alt="Classy Clickome Hero Visual"
             loading="eager"
             fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-25 filter contrast-110 saturate-125 pointer-events-none scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 via-brand-black/85 to-brand-black" />
@@ -341,7 +366,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "120px" }}
                 transition={{ duration: 0.25, delay: idx * 0.03, ease: "easeOut" }}
-                className="flex items-center justify-center h-36 md:h-44 p-6 bg-white/5 hover:bg-white/10 rounded-2xl transition-all duration-300 backdrop-blur-sm border border-white/5 hover:border-brand-gold/30 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] group"
+                className="flex items-center justify-center h-36 md:h-44 p-6 bg-brand-black/60 hover:bg-white/5 rounded-2xl transition-all duration-300 border border-white/5 hover:border-brand-gold/30 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)] group"
               >
                 {brand.type === "img" ? (
                   <img
@@ -364,8 +389,11 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-32 relative z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-brand-purple/10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-gold/10 rounded-full blur-[120px]" />
+        <div className="absolute inset-0 bg-brand-purple/10 pointer-events-none" />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none opacity-40"
+          style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%)' }}
+        />
         
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-5xl md:text-7xl font-display font-bold mb-10">Let's Build Something Exceptional</h2>
@@ -396,7 +424,50 @@ export default function Home() {
             </div>
           </div>
 
-          <form className="space-y-6" action="https://api.web3forms.com/submit" method="POST">
+          {formStatus === 'success' && (
+            <div className="mb-8 p-6 rounded-2xl bg-brand-gold/10 border border-brand-gold/40 text-center animate-fade-in">
+              <div className="w-12 h-12 mx-auto rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold mb-3">
+                <Check className="w-6 h-6" />
+              </div>
+              <h4 className="text-xl font-bold text-white mb-1">Message Sent Successfully!</h4>
+              <p className="text-gray-300 text-sm">Thank you for reaching out. The Clickome team will connect with you shortly.</p>
+              <button
+                type="button"
+                onClick={() => setFormStatus('idle')}
+                className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand-gold hover:underline"
+              >
+                Send Another Message
+              </button>
+            </div>
+          )}
+
+          {formStatus === 'error' && (
+            <div className="mb-8 p-6 rounded-2xl bg-red-500/10 border border-red-500/30 text-center">
+              <div className="w-12 h-12 mx-auto rounded-full bg-red-500/20 flex items-center justify-center text-red-400 mb-3">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <h4 className="text-xl font-bold text-white mb-1">Could Not Send Message</h4>
+              <p className="text-gray-300 text-sm mb-4">{formError}</p>
+              <div className="flex justify-center gap-4">
+                <a
+                  href="https://wa.me/919518308824"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors"
+                >
+                  Chat on WhatsApp
+                </a>
+                <a
+                  href="tel:+919518308824"
+                  className="px-5 py-2.5 rounded-full bg-brand-charcoal border border-white/20 text-white text-sm font-semibold transition-colors"
+                >
+                  Call Directly
+                </a>
+              </div>
+            </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleFormSubmit}>
             <input type="hidden" name="access_key" value="1b40788d-df99-48e6-8194-07103df04168" />
             <input type="hidden" name="subject" value="New form submission on Clickome!" />
             <input type="checkbox" name="botcheck" id="" style={{ display: "none" }} />
@@ -437,9 +508,17 @@ export default function Home() {
             </div>
             <button
               type="submit"
-              className="w-full py-4 rounded-full bg-gradient-to-r from-brand-gold to-brand-gold-light text-brand-black font-bold text-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-300"
+              disabled={formStatus === 'submitting'}
+              className="w-full py-4 rounded-full bg-gradient-to-r from-brand-gold to-brand-gold-light text-brand-black font-bold text-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Send Message
+              {formStatus === 'submitting' ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Sending Message...
+                </>
+              ) : (
+                'Send Message'
+              )}
             </button>
           </form>
         </div>

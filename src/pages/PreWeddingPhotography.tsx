@@ -53,7 +53,7 @@ export default function PreWeddingPhotography() {
                 transition={{ delay: idx * 0.1 }}
                 className="aspect-square rounded-xl overflow-hidden group"
               >
-                <img src={img} alt="Featured Pre-Wedding Photography" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={img} alt="Featured Pre-Wedding Photography" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
               </motion.div>
             ))}
           </div>

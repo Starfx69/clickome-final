@@ -98,7 +98,7 @@ export default function SocialMediaMarketing() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <img src={media.src} alt="Instagram Screenshot" className="w-full h-full object-contain p-2" />
+                  <img src={media.src} alt="Instagram Screenshot" loading="lazy" decoding="async" className="w-full h-full object-contain p-2" />
                 )}
               </motion.div>
             ))}
